@@ -25,4 +25,5 @@ Para armazenar os livros, foi utilizado um **HashMap**, utilizando o ISBN como i
 
 - Java
 - HashMap
+- ArrayList
 - Scanner
