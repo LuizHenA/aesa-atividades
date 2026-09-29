@@ -44,21 +44,23 @@ public class BookCatalog {
     // READ - Search by title
     public List<Book> findByTitle(String title) {
 
-        List<Book> results = new ArrayList<>();
+    List<Book> results = new ArrayList<>();
 
-        if (title == null || title.trim().isEmpty()) {
-            return results;
-        }
-
-        for (Book book : books.values()) {
-
-            if (book.getTitle().equalsIgnoreCase(title.trim())) {
-                results.add(book);
-            }
-        }
-
+    if (title == null || title.trim().isEmpty()) {
         return results;
     }
+
+    String searchTerm = title.trim().toLowerCase();
+
+    for (Book book : books.values()) {
+
+        if (book.getTitle().toLowerCase().contains(searchTerm)) {
+            results.add(book);
+        }
+    }
+
+    return results;
+}
 
     // READ - List all books
     public Collection<Book> listAll() {
