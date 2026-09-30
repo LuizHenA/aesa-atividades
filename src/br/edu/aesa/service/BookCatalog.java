@@ -18,8 +18,26 @@ public class BookCatalog {
     // CREATE
     public boolean register(Book book) {
 
-        if (book == null || book.getIsbn() == null
+        if (book == null) {
+            return false;
+        }
+
+        if (book.getIsbn() == null
                 || book.getIsbn().trim().isEmpty()) {
+            return false;
+        }
+
+        if (book.getTitle() == null
+                || book.getTitle().trim().isEmpty()) {
+            return false;
+        }
+
+        if (book.getAuthor() == null
+                || book.getAuthor().trim().isEmpty()) {
+            return false;
+        }
+
+        if (book.getPublicationYear() <= 0) {
             return false;
         }
 
@@ -44,23 +62,21 @@ public class BookCatalog {
     // READ - Search by title
     public List<Book> findByTitle(String title) {
 
-    List<Book> results = new ArrayList<>();
+        List<Book> results = new ArrayList<>();
 
-    if (title == null || title.trim().isEmpty()) {
+        if (title == null || title.trim().isEmpty()) {
+            return results;
+        }
+
+        for (Book book : books.values()) {
+
+            if (book.getTitle().equalsIgnoreCase(title.trim())) {
+                results.add(book);
+            }
+        }
+
         return results;
     }
-
-    String searchTerm = title.trim().toLowerCase();
-
-    for (Book book : books.values()) {
-
-        if (book.getTitle().toLowerCase().contains(searchTerm)) {
-            results.add(book);
-        }
-    }
-
-    return results;
-}
 
     // READ - List all books
     public Collection<Book> listAll() {
@@ -70,8 +86,11 @@ public class BookCatalog {
     // UPDATE
     public boolean update(String isbn, Book updatedBook) {
 
-        if (isbn == null || isbn.trim().isEmpty()
-                || updatedBook == null) {
+        if (isbn == null || isbn.trim().isEmpty()) {
+            return false;
+        }
+
+        if (updatedBook == null) {
             return false;
         }
 
@@ -98,6 +117,7 @@ public class BookCatalog {
         return true;
     }
 
+    // Check if the catalog is empty
     public boolean isEmpty() {
         return books.isEmpty();
     }
